@@ -61,7 +61,21 @@ app.get('/authUri', urlencodedParser, function(req,res) {
         redirectUri: req.query.json.redirectUri
     });
 
-    var authUri = oauthClient.authorizeUri({scope:[OAuthClient.scopes.Accounting],state:'intuit-test'});
+    var scopes = [
+        OAuthClient.scopes.Accounting,
+        OAuthClient.scopes.Payment,
+        // OAuthClient.scopes.Payroll,
+        // OAuthClient.scopes.TimeTracking,
+        // OAuthClient.scopes.Benefits,
+        OAuthClient.scopes.Profile,
+        OAuthClient.scopes.Email,
+        OAuthClient.scopes.Phone,
+        OAuthClient.scopes.Address,
+        OAuthClient.scopes.OpenId
+    ]
+    // var authUri = oauthClient.authorizeUri({scope:[OAuthClient.scopes.Accounting],state:'intuit-test'});
+    // res.send(authUri);
+    var authUri = oauthClient.authorizeUri({scope:[...scopes],state:'intuit-test'});
     res.send(authUri);
 });
 
